@@ -1,0 +1,110 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #e74c3c !important;
+}
+
+.btn-primary {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+.btn-primary:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
+.product-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.product-card img {
+  height: 200px;
+  object-fit: cover;
+  background: #ecf0f1;
+}
+
+.price-tag {
+  color: #e74c3c;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.badge-status-pending { background-color: #f39c12; }
+.badge-status-confirmed { background-color: #3498db; }
+.badge-status-processing { background-color: #9b59b6; }
+.badge-status-shipped { background-color: #1abc9c; }
+.badge-status-delivered { background-color: #27ae60; }
+.badge-status-cancelled { background-color: #e74c3c; }
+
+.cart-badge {
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  position: relative;
+  top: -8px;
+  left: -6px;
+}
+
+.page-hero {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 60px 0;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-weight: 700;
+  color: #2c3e50;
+  border-left: 4px solid #e74c3c;
+  padding-left: 12px;
+  margin-bottom: 24px;
+}
+
+.admin-sidebar {
+  background: #2c3e50;
+  min-height: 100vh;
+  color: white;
+}
+.admin-sidebar a {
+  color: #bdc3c7;
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.admin-sidebar a:hover, .admin-sidebar a.active {
+  background: #34495e;
+  color: white;
+}
+
+.stat-card {
+  border-radius: 12px;
+  padding: 24px;
+  color: white;
+  margin-bottom: 20px;
+}
+.stat-card.revenue { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.stat-card.orders { background: linear-gradient(135deg, #3498db, #2980b9); }
+.stat-card.products { background: linear-gradient(135deg, #27ae60, #229954); }
+.stat-card.customers { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+
+footer {
+  background: #2c3e50;
+  color: #bdc3c7;
+  padding: 30px 0;
+  margin-top: 60px;
+}

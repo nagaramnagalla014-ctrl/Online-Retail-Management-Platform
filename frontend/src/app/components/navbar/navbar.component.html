@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">&#128722; RetailShop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <form class="form-inline mx-auto" (ngSubmit)="search()">
+        <input class="form-control mr-2" type="search" placeholder="Search products..."
+               [(ngModel)]="searchTerm" name="searchTerm" style="width: 300px;">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" routerLink="/products">Products</a></li>
+        <li class="nav-item" *ngIf="currentUser">
+          <a class="nav-link" routerLink="/cart">
+            &#128722; Cart<span class="cart-badge" *ngIf="cartCount > 0">{{cartCount}}</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="currentUser">
+          <a class="nav-link" routerLink="/orders">My Orders</a>
+        </li>
+        <li class="nav-item" *ngIf="!currentUser">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!currentUser">
+          <a class="nav-link btn btn-primary text-white ml-2" routerLink="/register">Register</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="currentUser">
+          <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown">
+            {{currentUser?.firstName}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" routerLink="/admin">Admin Panel</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

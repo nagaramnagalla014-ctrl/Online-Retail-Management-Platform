@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <h2 class="section-title">Track Order</h2>
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Enter tracking number..."
+               [(ngModel)]="trackingNumber">
+        <div class="input-group-append">
+          <button class="btn btn-primary" (click)="track()" [disabled]="loading">Track</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center py-3" *ngIf="loading">
+    <div class="spinner-border text-danger"></div>
+  </div>
+  <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+
+  <div class="card" *ngIf="shipment">
+    <div class="card-body">
+      <h5>Shipment Details</h5>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Tracking Number:</strong> {{shipment.trackingNumber}}</p>
+          <p><strong>Carrier:</strong> {{shipment.carrier}}</p>
+          <p><strong>Status:</strong> <span class="badge badge-success">{{shipment.status}}</span></p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Est. Delivery:</strong> {{shipment.estimatedDelivery | date:'mediumDate'}}</p>
+          <p *ngIf="shipment.shippedAt"><strong>Shipped On:</strong> {{shipment.shippedAt | date:'medium'}}</p>
+          <p *ngIf="shipment.deliveredAt"><strong>Delivered On:</strong> {{shipment.deliveredAt | date:'medium'}}</p>
+        </div>
+      </div>
+      <div class="progress mt-3" style="height: 8px;">
+        <div class="progress-bar bg-success"
+             [style.width]="shipment.status === 'DELIVERED' ? '100%' :
+                            shipment.status === 'SHIPPED' ? '75%' :
+                            shipment.status === 'PROCESSING' ? '50%' : '25%'">
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mt-1">
+        <small>Ordered</small><small>Processing</small><small>Shipped</small><small>Delivered</small>
+      </div>
+    </div>
+  </div>
+</div>

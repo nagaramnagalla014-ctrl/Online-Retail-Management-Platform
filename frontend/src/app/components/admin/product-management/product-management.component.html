@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 admin-sidebar py-4">
+      <h6 class="text-white-50 px-3 mb-3">ADMIN PANEL</h6>
+      <a routerLink="/admin">Dashboard</a>
+      <a routerLink="/admin/products" routerLinkActive="active">Products</a>
+      <a routerLink="/admin/orders">Orders</a>
+      <a routerLink="/" class="mt-3">&#8592; Back to Store</a>
+    </div>
+    <div class="col-md-10 py-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>Product Management</h3>
+        <button class="btn btn-primary" (click)="openCreate()">+ Add Product</button>
+      </div>
+      <div class="alert alert-success" *ngIf="successMsg">{{successMsg}}</div>
+      <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+
+      <!-- Product Form -->
+      <div class="card mb-4" *ngIf="showForm">
+        <div class="card-header">
+          <strong>{{editingId ? 'Edit Product' : 'New Product'}}</strong>
+          <button class="close" (click)="showForm = false"><span>&times;</span></button>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="save()">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Product Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="model.name" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label>SKU</label>
+                  <input type="text" class="form-control" [(ngModel)]="model.sku" name="sku" required>
+                </div>
+                <div class="form-group">
+                  <label>Brand</label>
+                  <input type="text" class="form-control" [(ngModel)]="model.brand" name="brand">
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <select class="form-control" [(ngModel)]="model.category.categoryId" name="categoryId">
+                    <option value="">Select category</option>
+                    <option *ngFor="let cat of categories" [value]="cat.categoryId">{{cat.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Price (&#8377;)</label>
+                  <input type="number" class="form-control" [(ngModel)]="model.price" name="price" required>
+                </div>
+                <div class="form-group">
+                  <label>Stock Quantity</label>
+                  <input type="number" class="form-control" [(ngModel)]="model.stockQuantity" name="stock">
+                </div>
+                <div class="form-group">
+                  <label>Image URL</label>
+                  <input type="text" class="form-control" [(ngModel)]="model.imageUrl" name="imageUrl">
+                </div>
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" [(ngModel)]="model.description" name="description" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">{{editingId ? 'Update' : 'Create'}}</button>
+            <button type="button" class="btn btn-secondary ml-2" (click)="showForm = false">Cancel</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Products Table -->
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="text-center py-4" *ngIf="loading"><div class="spinner-border text-danger"></div></div>
+          <table class="table table-hover mb-0" *ngIf="!loading">
+            <thead class="thead-light">
+              <tr>
+                <th>SKU</th><th>Name</th><th>Brand</th><th>Category</th>
+                <th>Price</th><th>Stock</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{product.sku}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.brand}}</td>
+                <td>{{product.category?.name}}</td>
+                <td>&#8377;{{product.price | number:'1.0-0'}}</td>
+                <td>
+                  <span [class]="product.stockQuantity <= 5 ? 'text-danger font-weight-bold' : ''">
+                    {{product.stockQuantity}}
+                  </span>
+                </td>
+                <td>
+                  <span [class]="product.isActive ? 'badge badge-success' : 'badge badge-secondary'">
+                    {{product.isActive ? 'Active' : 'Inactive'}}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary mr-1" (click)="editProduct(product)">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="delete(product.productId)">Deactivate</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

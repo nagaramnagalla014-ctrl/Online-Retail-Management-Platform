@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-danger"></div>
+  </div>
+  <div *ngIf="!loading && product">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/products">Products</a></li>
+        <li class="breadcrumb-item active">{{product.name}}</li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="bg-light d-flex align-items-center justify-content-center rounded"
+             style="height:350px;font-size:6rem;">&#128722;</div>
+      </div>
+      <div class="col-md-7">
+        <span class="badge badge-secondary mb-2">{{product.category?.name}}</span>
+        <h2>{{product.name}}</h2>
+        <p class="text-muted">Brand: <strong>{{product.brand}}</strong></p>
+        <p class="text-muted">SKU: {{product.sku}}</p>
+        <p>{{product.description}}</p>
+        <h3 class="price-tag">&#8377;{{product.price | number:'1.0-0'}}</h3>
+        <p class="text-muted">
+          <span *ngIf="product.stockQuantity > 0" class="text-success">
+            &#10003; In Stock ({{product.stockQuantity}} available)
+          </span>
+          <span *ngIf="product.stockQuantity === 0" class="text-danger">Out of Stock</span>
+        </p>
+        <div class="alert alert-success" *ngIf="successMsg">{{successMsg}}</div>
+        <div class="d-flex align-items-center mt-3" *ngIf="product.stockQuantity > 0">
+          <div class="input-group mr-3" style="width: 130px;">
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" (click)="quantity > 1 && quantity = quantity - 1">-</button>
+            </div>
+            <input type="number" class="form-control text-center" [(ngModel)]="quantity" min="1"
+                   [max]="product.stockQuantity">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="quantity = quantity + 1">+</button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-lg" (click)="addToCart()" [disabled]="adding">
+            <span *ngIf="adding" class="spinner-border spinner-border-sm mr-2"></span>
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-warning" *ngIf="!loading && !product">Product not found.</div>
+</div>

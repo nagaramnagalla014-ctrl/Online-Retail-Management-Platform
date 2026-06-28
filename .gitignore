@@ -1,0 +1,31 @@
+# Maven
+backend/target/
+*.class
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+npm-debug.log*
+
+# IDE
+.idea/
+*.iml
+.eclipse/
+.settings/
+.project
+.classpath
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+*.env
+*.local
+
+# Docker volumes
+mysql_data/
+
+# Claude
+.claude/

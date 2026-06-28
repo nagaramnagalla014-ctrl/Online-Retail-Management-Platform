@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <h2 class="section-title">My Orders</h2>
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-danger"></div>
+  </div>
+  <div class="alert alert-info" *ngIf="!loading && orders.length === 0">
+    No orders yet. <a routerLink="/products">Start shopping</a>
+  </div>
+  <div *ngFor="let order of orders" class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h6 class="mb-1">Order #{{order.orderNumber}}</h6>
+          <small class="text-muted">{{order.createdAt | date:'mediumDate'}}</small>
+        </div>
+        <div class="text-right">
+          <span [class]="getStatusClass(order.status)">{{order.status}}</span>
+          <h5 class="price-tag mt-1">&#8377;{{order.totalAmount | number:'1.0-0'}}</h5>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-8">
+          <div *ngFor="let item of order.items" class="d-flex align-items-center mb-1">
+            <span class="mr-2">&#128722;</span>
+            <span>{{item.productName}} &times; {{item.quantity}}</span>
+            <span class="ml-auto">&#8377;{{item.totalPrice | number:'1.0-0'}}</span>
+          </div>
+        </div>
+        <div class="col-md-4 text-right">
+          <a [routerLink]="['/track']" [queryParams]="{order: order.orderId}"
+             class="btn btn-sm btn-outline-primary">Track Order</a>
+        </div>
+      </div>
+      <div *ngIf="order.shipment" class="mt-2">
+        <small class="text-muted">
+          Tracking: <strong>{{order.shipment.trackingNumber}}</strong>
+          via {{order.shipment.carrier}}
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
