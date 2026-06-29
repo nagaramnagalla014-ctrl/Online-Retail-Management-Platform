@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopFlow — Online Retail Management Platform</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--bg:#080c14;--card:rgba(255,255,255,0.035);--border:rgba(255,255,255,0.07);--text:#e2e8f0;--muted:#64748b;--blue:#4f8ef7;--purple:#8b5cf6;--green:#22d3a5;--red:#f43f5e;--yellow:#f59e0b;--cyan:#06d6c0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+.demo-banner{background:rgba(245,158,11,0.15);border-bottom:1px solid rgba(245,158,11,0.3);color:#f59e0b;text-align:center;padding:8px;font-size:13px;font-weight:500}
+.navbar{display:flex;align-items:center;gap:24px;padding:0 24px;height:60px;background:rgba(13,20,36,0.95);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-brand{font-size:18px;font-weight:700;background:linear-gradient(135deg,#4f8ef7,#06d6c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:4px}
+.nav-link{padding:6px 14px;border-radius:6px;color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none}
+.nav-link:hover,.nav-link.active{background:rgba(79,142,247,0.12);color:var(--blue)}
+.main{padding:24px;max-width:1400px;margin:0 auto}
+.tab{display:none}.tab.active{display:block}
+h1{font-size:22px;font-weight:700;margin-bottom:24px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px}
+.si{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.si-b{background:rgba(79,142,247,0.15);color:var(--blue)}.si-g{background:rgba(34,211,165,0.15);color:var(--green)}.si-p{background:rgba(139,92,246,0.15);color:var(--purple)}.si-y{background:rgba(245,158,11,0.15);color:var(--yellow)}
+.sv{font-size:26px;font-weight:700;line-height:1}.sl{font-size:12px;color:var(--muted);margin-top:2px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);font-size:15px;font-weight:600}
+table{width:100%;border-collapse:collapse}
+th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--border)}
+td{padding:12px 16px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.bg{background:rgba(34,211,165,0.15);color:var(--green);border:1px solid rgba(34,211,165,0.3)}
+.bb{background:rgba(79,142,247,0.15);color:var(--blue);border:1px solid rgba(79,142,247,0.3)}
+.by{background:rgba(245,158,11,0.15);color:var(--yellow);border:1px solid rgba(245,158,11,0.3)}
+.br{background:rgba(244,63,94,0.15);color:var(--red);border:1px solid rgba(244,63,94,0.3)}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px}
+.prod-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:14px}
+.prod-img{width:100%;height:80px;background:linear-gradient(135deg,rgba(79,142,247,0.1),rgba(139,92,246,0.1));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:10px}
+.prod-name{font-size:13px;font-weight:600;margin-bottom:4px}
+.prod-price{font-size:14px;font-weight:700;color:var(--green)}
+.prod-stock{font-size:11px;color:var(--muted);margin-top:4px}
+@media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.prod-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="demo-banner"><i class="fas fa-flask"></i> UI Demo — backend requires local setup (Java 8 · Spring Boot · Angular 5 · MySQL · Docker)</div>
+<nav class="navbar">
+  <div class="nav-brand"><i class="fas fa-store"></i> ShopFlow</div>
+  <div class="nav-links">
+    <a class="nav-link active" onclick="showTab('dashboard',this)">Dashboard</a>
+    <a class="nav-link" onclick="showTab('products',this)">Products</a>
+    <a class="nav-link" onclick="showTab('orders',this)">Orders</a>
+    <a class="nav-link" onclick="showTab('inventory',this)">Inventory</a>
+  </div>
+</nav>
+<main class="main">
+  <div id="tab-dashboard" class="tab active">
+    <h1>Retail Dashboard</h1>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="si si-g"><i class="fas fa-dollar-sign"></i></div><div><div class="sv">$284,192</div><div class="sl">Total Revenue (MTD)</div></div></div>
+      <div class="stat-card"><div class="si si-b"><i class="fas fa-cart-shopping"></i></div><div><div class="sv">3,841</div><div class="sl">Orders This Month</div></div></div>
+      <div class="stat-card"><div class="si si-p"><i class="fas fa-users"></i></div><div><div class="sv">12,408</div><div class="sl">Active Customers</div></div></div>
+      <div class="stat-card"><div class="si si-y"><i class="fas fa-box"></i></div><div><div class="sv">247</div><div class="sl">Products Listed</div></div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="ch">Recent Orders</div>
+        <table><thead><tr><th>Order ID</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>#ORD-8821</td><td>Priya Sharma</td><td>$124.50</td><td><span class="badge bg">Delivered</span></td></tr>
+          <tr><td>#ORD-8820</td><td>Raj Patel</td><td>$89.99</td><td><span class="badge bb">Shipped</span></td></tr>
+          <tr><td>#ORD-8819</td><td>Anita Kumar</td><td>$312.00</td><td><span class="badge by">Processing</span></td></tr>
+          <tr><td>#ORD-8818</td><td>Suresh Nair</td><td>$45.20</td><td><span class="badge bg">Delivered</span></td></tr>
+          <tr><td>#ORD-8817</td><td>Meena Joshi</td><td>$198.75</td><td><span class="badge bb">Shipped</span></td></tr>
+          <tr><td>#ORD-8816</td><td>Deepak Singh</td><td>$67.30</td><td><span class="badge br">Cancelled</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <div class="ch">Top Categories</div>
+        <table><thead><tr><th>Category</th><th>Sales</th><th>Revenue</th></tr></thead>
+        <tbody>
+          <tr><td>Electronics</td><td>1,240</td><td>$98,400</td></tr>
+          <tr><td>Clothing</td><td>892</td><td>$44,600</td></tr>
+          <tr><td>Home & Garden</td><td>634</td><td>$38,200</td></tr>
+          <tr><td>Sports</td><td>412</td><td>$24,700</td></tr>
+          <tr><td>Books</td><td>318</td><td>$9,540</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+  <div id="tab-products" class="tab">
+    <h1>Product Catalogue</h1>
+    <div class="card">
+      <div class="prod-grid">
+        <div class="prod-card"><div class="prod-img">📱</div><div class="prod-name">Smartphone Pro X12</div><div class="prod-price">$849.00</div><div class="prod-stock">Stock: 48 units · <span class="badge bg">Active</span></div></div>
+        <div class="prod-card"><div class="prod-img">💻</div><div class="prod-name">UltraBook 15 Pro</div><div class="prod-price">$1,299.00</div><div class="prod-stock">Stock: 22 units · <span class="badge bg">Active</span></div></div>
+        <div class="prod-card"><div class="prod-img">🎧</div><div class="prod-name">Wireless Headphones Z</div><div class="prod-price">$249.00</div><div class="prod-stock">Stock: 0 units · <span class="badge br">Out of Stock</span></div></div>
+        <div class="prod-card"><div class="prod-img">⌚</div><div class="prod-name">Smart Watch Series 8</div><div class="prod-price">$399.00</div><div class="prod-stock">Stock: 35 units · <span class="badge bg">Active</span></div></div>
+        <div class="prod-card"><div class="prod-img">📷</div><div class="prod-name">DSLR Camera Kit Pro</div><div class="prod-price">$1,899.00</div><div class="prod-stock">Stock: 8 units · <span class="badge by">Low Stock</span></div></div>
+        <div class="prod-card"><div class="prod-img">🖥️</div><div class="prod-name">4K Monitor 27"</div><div class="prod-price">$649.00</div><div class="prod-stock">Stock: 19 units · <span class="badge bg">Active</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="tab-orders" class="tab">
+    <h1>Order Management</h1>
+    <div class="card">
+      <table><thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Amount</th><th>Payment</th><th>Placed</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>#ORD-8821</td><td>Priya Sharma</td><td>3</td><td>$124.50</td><td><span class="badge bg">Paid</span></td><td>2024-01-15</td><td><span class="badge bg">Delivered</span></td></tr>
+        <tr><td>#ORD-8820</td><td>Raj Patel</td><td>1</td><td>$89.99</td><td><span class="badge bg">Paid</span></td><td>2024-01-15</td><td><span class="badge bb">Shipped</span></td></tr>
+        <tr><td>#ORD-8819</td><td>Anita Kumar</td><td>5</td><td>$312.00</td><td><span class="badge bg">Paid</span></td><td>2024-01-14</td><td><span class="badge by">Processing</span></td></tr>
+        <tr><td>#ORD-8818</td><td>Suresh Nair</td><td>2</td><td>$45.20</td><td><span class="badge bg">Paid</span></td><td>2024-01-14</td><td><span class="badge bg">Delivered</span></td></tr>
+        <tr><td>#ORD-8817</td><td>Meena Joshi</td><td>4</td><td>$198.75</td><td><span class="badge bg">Paid</span></td><td>2024-01-13</td><td><span class="badge bb">Shipped</span></td></tr>
+        <tr><td>#ORD-8816</td><td>Deepak Singh</td><td>1</td><td>$67.30</td><td><span class="badge br">Refunded</span></td><td>2024-01-12</td><td><span class="badge br">Cancelled</span></td></tr>
+        <tr><td>#ORD-8815</td><td>Kavita Rao</td><td>2</td><td>$249.00</td><td><span class="badge bg">Paid</span></td><td>2024-01-12</td><td><span class="badge bg">Delivered</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div id="tab-inventory" class="tab">
+    <h1>Inventory Management</h1>
+    <div class="card">
+      <table><thead><tr><th>Product</th><th>SKU</th><th>Category</th><th>Stock</th><th>Reorder Point</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Smartphone Pro X12</td><td>EL-1001</td><td>Electronics</td><td>48</td><td>20</td><td><span class="badge bg">OK</span></td></tr>
+        <tr><td>UltraBook 15 Pro</td><td>EL-1002</td><td>Electronics</td><td>22</td><td>10</td><td><span class="badge bg">OK</span></td></tr>
+        <tr><td>Wireless Headphones Z</td><td>EL-1003</td><td>Electronics</td><td>0</td><td>15</td><td><span class="badge br">Out of Stock</span></td></tr>
+        <tr><td>Smart Watch Series 8</td><td>EL-1004</td><td>Electronics</td><td>35</td><td>10</td><td><span class="badge bg">OK</span></td></tr>
+        <tr><td>DSLR Camera Kit Pro</td><td>EL-1005</td><td>Electronics</td><td>8</td><td>10</td><td><span class="badge by">Low Stock</span></td></tr>
+        <tr><td>Cotton T-Shirt (M)</td><td>CL-2001</td><td>Clothing</td><td>142</td><td>50</td><td><span class="badge bg">OK</span></td></tr>
+        <tr><td>Running Shoes Pro</td><td>SP-3001</td><td>Sports</td><td>29</td><td>30</td><td><span class="badge by">Low Stock</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</main>
+<script>
+function showTab(t,el){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+t).classList.add('active');el.classList.add('active')}
+</script>
+</body>
+</html>
